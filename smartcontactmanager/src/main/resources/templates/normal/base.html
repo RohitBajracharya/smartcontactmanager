@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	th:fragment="layout(content)">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title th:text="${title}">Base Html</title>
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+	rel="stylesheet"
+	integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM"
+	crossorigin="anonymous">
+<!--Bootsrap 4 CDN-->
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+	integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+	crossorigin="anonymous">
+
+<!--Fontawesome CDN-->
+<link rel="stylesheet"
+	href="https://use.fontawesome.com/releases/v5.3.1/css/all.css"
+	integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU"
+	crossorigin="anonymous">
+
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+	integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+	crossorigin="anonymous" referrerpolicy="no-referrer" />
+	
+	
+<link rel="stylesheet" href="" th:href="@{/css/contact.css}" />
+</head>
+<body>
+
+	<!--  Navbar -->
+	<nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top">
+		<div class="container-fluid">
+			<a class="navbar-brand" href="#">Smart Contact Manager</a>
+			<button class="navbar-toggler" type="button"
+				data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+				aria-controls="navbarSupportedContent" aria-expanded="false"
+				aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+				<ul class="navbar-nav ms-auto text-uppercase">
+					<li class="nav-item "><a class="nav-link active"
+						th:href="@{/}">Home</a></li>
+					<li class="nav-item"><a class="nav-link"><span
+							th:text="${user.name}"></span></a></li>
+					<li class="nav-item"><a class="nav-link" th:href="@{/logout}">
+							Logout</a></li>
+				</ul>
+			</div>
+		</div>
+	</nav>
+	<!-- navbar ends  -->
+
+	<!-- sidebar -->
+	<div class="sidebar mt-2">
+		<span onclick="toggleSidebar()" class="crossBtn">&times;</span>
+		<a href="#" th:href="@{/user/dashboard}" class="item"><i class="fa-solid fa-house"></i> Home</a> 
+		<a href="#"  class="item"><i class="fa-solid fa-address-book"></i> View Contacts</a> 
+		<a href="#" th:href="@{/user/add-contact}" class="item"><i class="fa-solid fa-pencil"></i> Add Contact</a>
+		<a href="#" class="item"><i class="fa-solid fa-user"></i> Profile</a> 
+		<a href="#" class="item"><i class="fa-sharp fa-solid fa-gear"></i> Settings</a>
+		<a href="#" th:href="@{/logout}" class="item"><i class="fa-solid fa-right-from-bracket"></i> Logout</a>
+		
+		<div class="divider"></div>
+	</div>
+	<!-- sidebar ends -->
+
+
+	<!-- content area -->
+	<div class="content mt-5">
+		<i onclick="toggleSidebar()" class="fas fa-bars m-3" id="menu"></i>
+		
+		<div th:replace="${content}"></div>
+	</div>
+	<!-- content end -->
+
+
+
+
+	<script src="" th:src="@{/js/script.js}"></script>
+	<script
+		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
+		integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
+		crossorigin="anonymous"></script>
+</body>
+</html>
