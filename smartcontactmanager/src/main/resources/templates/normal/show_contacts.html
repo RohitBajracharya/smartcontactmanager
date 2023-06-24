@@ -34,14 +34,23 @@
 							<td th:text="${c.work}"></td>
 							<td th:text="${c.email}"></td>
 							<td>
-							<button class="btn btn-danger btn-sm">Delete</button>
-							<button class="btn btn-primary btn-sm">Update</button>
+								<button class="btn btn-danger btn-sm">Delete</button>
+								<button class="btn btn-primary btn-sm">Update</button>
 							</td>
-							
+
 						</tr>
 					</tbody>
 				</table>
-
+				<!-- pagination  -->
+				<nav aria-label="Page navigation example">
+					<ul class="pagination">
+						<li th:if="${currentPage != 0}" class="page-item"><a class="page-link" href="#" th:href="@{'/user/show-contacts/'+${currentPage-1}}">Previous</a></li>
+						<li th:classappend="${currentPage==i-1?'active':''}" th:each="i:${#numbers.sequence(1,totalPages)}"
+							class="page-item"><a class="page-link" href="#" th:href="@{'/user/show-contacts/'+${i-1}}"><span
+								th:text="${i}"></span></a></li>
+						<li th:if="${currentPage+1 != totalPages}" class="page-item"><a class="page-link" href="#" th:href="@{'/user/show-contacts/'+${currentPage+1}}">Next</a></li>
+					</ul>
+				</nav>
 			</div>
 		</div>
 
