@@ -26,8 +26,26 @@
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
 	integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
 	crossorigin="anonymous" referrerpolicy="no-referrer" />
-	
-	
+
+<script>
+	function deleteContact(cid){
+		swal({
+			  title: "Are you sure?",
+			  text: "You want to delete this contact?",
+			  icon: "warning",
+			  buttons: true,
+			  dangerMode: true,
+			})
+			.then((willDelete) => {
+			  if (willDelete) {
+			    window.location="/user/delete/"+cid;
+			  } else {
+			    swal("Your contact is safe!!");
+			  }
+			});
+	}
+</script>
+
 <link rel="stylesheet" href="" th:href="@{/css/contact.css}" />
 </head>
 <body>
@@ -59,14 +77,18 @@
 
 	<!-- sidebar -->
 	<div class="sidebar mt-2">
-		<span onclick="toggleSidebar()" class="crossBtn">&times;</span>
-		<a href="#" th:href="@{/user/dashboard}" class="item"><i class="fa-solid fa-house"></i> Home</a> 
-		<a href="#" th:href="@{/user/show-contacts/0}" class="item"><i class="fa-solid fa-address-book"></i> View Contacts</a> 
-		<a href="#" th:href="@{/user/add-contact}" class="item"><i class="fa-solid fa-pencil"></i> Add Contact</a>
-		<a href="#" class="item"><i class="fa-solid fa-user"></i> Profile</a> 
-		<a href="#" class="item"><i class="fa-sharp fa-solid fa-gear"></i> Settings</a>
-		<a href="#" th:href="@{/logout}" class="item"><i class="fa-solid fa-right-from-bracket"></i> Logout</a>
-		
+		<span onclick="toggleSidebar()" class="crossBtn">&times;</span> <a
+			href="#" th:href="@{/user/dashboard}" class="item"><i
+			class="fa-solid fa-house"></i> Home</a> <a href="#"
+			th:href="@{/user/show-contacts/0}" class="item"><i
+			class="fa-solid fa-address-book"></i> View Contacts</a> <a href="#"
+			th:href="@{/user/add-contact}" class="item"><i
+			class="fa-solid fa-pencil"></i> Add Contact</a> <a href="#" class="item"><i
+			class="fa-solid fa-user"></i> Profile</a> <a href="#" class="item"><i
+			class="fa-sharp fa-solid fa-gear"></i> Settings</a> <a href="#"
+			th:href="@{/logout}" class="item"><i
+			class="fa-solid fa-right-from-bracket"></i> Logout</a>
+
 		<div class="divider"></div>
 	</div>
 	<!-- sidebar ends -->
@@ -77,7 +99,10 @@
 		<i onclick="toggleSidebar()" class="fas fa-bars m-3" id="menu"></i>
 		<!-- message box -->
 		<div th:if="${session.message}" class="container">
-			<div class="alert text-center" th:classappend="${'alert-'+session.message.type}" role="alert"><span th:text=${session.message.content}></span></div>
+			<div class="alert text-center"
+				th:classappend="${'alert-'+session.message.type}" role="alert">
+				<span th:text=${session.message.content}></span>
+			</div>
 			<th:block th:text="${#session.removeAttribute('message')}"></th:block>
 		</div>
 		<div th:replace="${content}"></div>
@@ -85,6 +110,7 @@
 	<!-- content end -->
 
 
+	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
 
 	<script src="" th:src="@{/js/script.js}"></script>

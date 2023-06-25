@@ -7,7 +7,7 @@
 </head>
 <body>
 	<section>
-		<div class="card mr-3 ml-3">
+		<div th:if="${contacts}" class="card mr-3 ml-3">
 			<div class="card-body">
 				<h1 class="text-center">Your Contacts</h1>
 
@@ -16,27 +16,27 @@
 						<tr>
 							<th scope="col">Id</th>
 							<th scope="col">Name</th>
-							<th scope="col">Nickname</th>
 							<th scope="col">Email</th>
 							<th scope="col">Phone</th>
-							<th scope="col">Work</th>
-							<th scope="col">Email</th>
 							<th scope="col">Action</th>
 						</tr>
 					</thead>
 					<tbody>
 						<tr th:each="c:${contacts}">
 							<th scope="row" th:text="${'SCM'+c.cid}">1</th>
-							<td th:text="${c.name}"></td>
-							<td th:text="${c.secondName}"></td>
+							<td><img src="" class="my_profile_picture"
+								th:src="@{'/img/'+${c.imageUrl}}" alt="profile photo" /> <a
+								href="" th:href="@{'/user/'+${c.cid}+'/contact'}"> <span
+									th:text="${c.name}"></span></a></td>
+
 							<td th:text="${c.email}"></td>
 							<td th:text="${c.phone}"></td>
-							<td th:text="${c.work}"></td>
-							<td th:text="${c.email}"></td>
-							<td>
-								<button class="btn btn-danger btn-sm">Delete</button>
-								<button class="btn btn-primary btn-sm">Update</button>
-							</td>
+							<td><a href="#" th:onclick="|deleteContact(${c.cid})|"
+								class="btn btn-danger btn-sm">Delete</a>
+								
+								<form class="mt-2" th:action="@{'/user/edit-contact/'+${c.cid}}" method="POST">
+									<button type="submit" class="btn btn-primary btn-sm">Update</button>
+								</form></td>
 
 						</tr>
 					</tbody>
@@ -44,16 +44,23 @@
 				<!-- pagination  -->
 				<nav aria-label="Page navigation example">
 					<ul class="pagination">
-						<li th:if="${currentPage != 0}" class="page-item"><a class="page-link" href="#" th:href="@{'/user/show-contacts/'+${currentPage-1}}">Previous</a></li>
-						<li th:classappend="${currentPage==i-1?'active':''}" th:each="i:${#numbers.sequence(1,totalPages)}"
-							class="page-item"><a class="page-link" href="#" th:href="@{'/user/show-contacts/'+${i-1}}"><span
+						<li th:if="${currentPage != 0}" class="page-item"><a
+							class="page-link" href="#"
+							th:href="@{'/user/show-contacts/'+${currentPage-1}}">Previous</a></li>
+						<li th:classappend="${currentPage==i-1?'active':''}"
+							th:each="i:${#numbers.sequence(1,totalPages)}" class="page-item"><a
+							class="page-link" href="#"
+							th:href="@{'/user/show-contacts/'+${i-1}}"><span
 								th:text="${i}"></span></a></li>
-						<li th:if="${currentPage+1 != totalPages}" class="page-item"><a class="page-link" href="#" th:href="@{'/user/show-contacts/'+${currentPage+1}}">Next</a></li>
+						<li th:if="${currentPage+1 != totalPages}" class="page-item"><a
+							class="page-link" href="#"
+							th:href="@{'/user/show-contacts/'+${currentPage+1}}">Next</a></li>
 					</ul>
 				</nav>
 			</div>
 		</div>
-
+		<h1 class="text-center bg-danger p-3 text-white"
+			th:unless="${contacts}">You don't have any contact...</h1>
 	</section>
 </body>
 </html>
