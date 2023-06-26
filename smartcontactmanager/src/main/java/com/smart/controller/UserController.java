@@ -145,9 +145,12 @@ public class UserController {
 		String userName = principal.getName();
 		User user = this.userRepository.getUserByUserName(userName);
 		if (user.getId() == contact.getUser().getId()) {
-			contact.setUser(null);
-			this.contactRepository.delete(contact);
-			session.setAttribute("message", new Message("contact deleted successfully", "success"));
+			/*
+			 * contact.setUser(null); this.contactRepository.delete(contact);
+			 */
+			user.getContacts().remove(contact);
+			this.userRepository.save(user);
+			session.setAttribute("message", new Message("Contact Deleted Successfully", "success"));
 		}
 		return "redirect:/user/show-contacts/0";
 	}
@@ -185,7 +188,7 @@ public class UserController {
 			User user = this.userRepository.getUserByUserName(principal.getName());
 			contact.setUser(user);
 			this.contactRepository.save(contact);
-			session.setAttribute("message", new Message("Contact successfully edited", "success"));
+			session.setAttribute("message", new Message("Contact Successfully Edited", "success"));
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -193,4 +196,15 @@ public class UserController {
 		
 		return "redirect:/user/"+contact.getCid()+"/contact";
 	}
+	
+//	handler to display your profile
+	@GetMapping("/profile")
+	public String displayProfile(Model model) {
+		
+		model.addAttribute("title","Profile Page");
+		return "normal/profile";
+	}
+	
+	
+	
 }
